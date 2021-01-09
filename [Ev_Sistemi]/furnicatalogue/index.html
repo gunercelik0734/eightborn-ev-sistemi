@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+        <link href="index.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="background" style="z-index:2">
+            <div id="location" style="margin-left:80%; margin-top: 10%;width: 100px;">
+                Filtreleme : <input id='searchTags' type='text' placeholder="Aranacak Kelime">
+            </div>
+            
+      </div>
+        <div id="grid-container" class="grid-container" style="z-index:2"></div>
+
+        <script src="index.js" type="text/javascript"></script>
+    </body>
+</html>
+<script>
+jQuery.expr[':'].contains = function(a, i, m) {
+    return jQuery(a).text().toUpperCase()
+        .indexOf(m[3].toUpperCase()) >= 0;
+};
+
+$(document).ready(function () {
+    // keyup ile inputa herhangi bir değer girilince fonksiyonu tetikliyoruz
+    $("#searchTags").keyup(function(){
+        // inputa yazılan değeri alıyoruz
+        var value = $("#searchTags").val();
+        // eğer input içinde değer yoksa yani boşsa tüm menüyü çıkartıyoruz
+        if(value.length==0){
+            $(".grid-item").show();
+		// arama yapılmışsa ilk olarak tüm menüyü gizliyoruz ve girilen değer ile eşleşen kısmı çıkarıyoruz
+        }else{
+            $(".grid-item").hide();
+            $(".grid-item:contains("+value+")").show();
+        }
+    });
+});
+</script>
